@@ -1,0 +1,8 @@
+/* universal */
+* { font-family: Unifont; font-size: 16px; }
+
+/* main bar */
+window#waybar { 
+ background-color: rgba(7,7,7,0.8); 
+ color: #F7FFE9;
+ border-bottom: 1px solid #1AA3B6; }

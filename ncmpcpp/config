@@ -1,0 +1,47 @@
+# directories
+ncmpcpp_directory = ~/.config/ncmpcpp
+lyrics_directory = ~/.lyrics
+
+# mpd configuration
+mpd_host = localhost
+mpd_port = 6600
+mpd_music_dir = /media/vent/MP3
+
+# type
+mouse_list_scroll_whole_page = "yes"
+startup_screen = playlist
+
+# rules
+allow_for_physical_item_deletion = "no"
+
+# styling
+user_interface = alternative
+playlist_display_mode = "columns"
+
+## hiding
+display_volume_level = "no"
+header_visibility = "no"
+titles_visibility = "no"
+statusbar_visibility = "no"
+
+## formatting
+alternative_header_first_line_format = "{♫ $3%t$9 ♫}"
+alternative_header_second_line_format = "{$4%a$9 | }{$7%b$9 | }{$6%4y$9}"
+song_columns_list_format = "(30)[yellow]{ar} (35)[green]{t} (30)[cyan]{br} (6f)[magenta]{l}"
+
+### title for waybar
+song_window_title_format = "{%t | }{%a}|{%f}"
+
+### progress bar
+progressbar_look = "▮▮▮"
+progressbar_elapsed_color = "magenta"
+
+## colours
+colors_enabled = "yes"
+alternative_ui_separator_color = "yellow"
+main_window_color = "green"
+color1 = "yellow"
+color2 = "cyan"
+
+current_item_prefix = "»"
+current_item_suffix = "«"

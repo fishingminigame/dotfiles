@@ -1,0 +1,51 @@
+// -*- mode: jsonc -*-
+{
+ "layer": "top",	// layer relative to windows (top|bottom) 
+ "position": "top",	// screen position (top|bottom|left|right)
+ "height": 25,		// height (removed = auto height)
+ "width": 1920,		// waybar width
+ "spacing": 10,		// gaps between modules (px)
+
+ // module order
+ "modules-left": ["idle_inhibitor", "sway/window" ],
+ "modules-right": [ "mpd", "pulseaudio", "clock" ],
+
+ // module configs
+
+ "idle_inhibitor": { 
+  "format": "{icon}",
+  "format-icons": {
+   "activated": " 🎮 |",
+   "deactivated": " 💤 |" }
+ },
+
+ "sway/window": { 
+  "format": "{title}"
+ },
+
+ "mpd": {
+  "format": "{stateIcon}{title} | {elapsedTime:%M:%S}/{totalTime:%M:%S} |",
+  "format-disconnected": "--",
+  "format-stopped": "⏹(stopped)",
+  "interval": 5,
+  "tooltip": false,
+  "on-click": "playerctl play-pause",
+  "state-icons": {
+   "paused": "⏸",
+   "playing": "⏵"
+  },
+ },
+
+ "pulseaudio": {
+  "format": "{volume}% 🔊 |",
+  "format-muted": "🔇 |",
+  "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+ },
+
+ "clock": {
+  "interval": 1,
+  "timezone": "Canada/Atlantic",
+  "format": "{:%H:%M:%S | %Y-%m-%d }",
+ }
+
+}

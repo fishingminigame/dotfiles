@@ -1,0 +1,6 @@
+max-items 50
+browser firefox
+color listfocus 		black 	green
+color title			black	cyan
+color info			black	cyan
+color hint-key			white	cyan

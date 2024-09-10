@@ -1,0 +1,26 @@
+/* u know wtf this is. cc0 no rights reserved */
+
+* { 
+    font: "dina 10";
+    bg0: #000000CC;
+    fg0: #8DE20C; 
+    fg1: #1AA3B6;
+    background-color: transparent;
+    text-color: @fg0;
+    padding: 0;
+    margin: 0;
+    spacing: 0;
+}
+
+window { 
+    location: center; 
+    width: 200px;
+    height: 50px;
+    padding: 5px; 
+    background-color: @bg0;
+    border: 1px;
+    border-color: @fg0;
+}
+prompt { 
+    enabled: false; 
+}

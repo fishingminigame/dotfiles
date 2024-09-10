@@ -1,0 +1,201 @@
+# "man 5 sway" for reference
+
+## variables ##
+
+# modifier - mod4 = super (jellyfish) #
+# other options: shift, control, mod1 (alt) #
+# (run xmodmap for more keys) #
+set $mod Mod4
+
+# terminal emulator #
+set $term kitty
+
+# application launcher #
+# note: pass the final command to swaymsg so the window opens in the same workspace #
+#set $menu wofi --show dmenu | xargs swaymsg exec --
+set $menu rofi -show drun -theme surge | xargs swaymsg exec --
+
+## output config ##
+
+# wallpaper #
+# default in /usr/share/backgrounds/sway/) #
+output DP-1 bg /home/leviathan/pictures/wallpapers/surgekit_skaleigha.png fill
+output DP-2 bg /home/leviathan/pictures/wallpapers/surgekit_is1ri.png fill
+
+# monitor #
+# (will be more useful when using 2...) #
+# get output names from swaymsg -t get_outputs #
+output DP-1 resolution 1920x1080 position 0 0 
+output DP-2 resolution 1920x1080 position 1920 0
+
+# gaps #
+gaps inner 20
+
+## idle config ##
+
+# lock after 300s #
+# display off after 600s #
+# screens on at resume #
+# wallpaper set in swaylock config #
+exec swayidle -w \
+ timeout 300 'swaylock -f' \
+ timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+ before-sleep 'swaylock -f'
+
+## input config ##
+
+# get input names from swaymsg -t get_inputs #
+# more info in man 5 sway-input #
+input type:keyboard xkb_layout ca
+
+## keybinds - universal ##
+
+# screenshot: jelly+shift+s #
+bindsym $mod+Shift+s exec slurp | grim -g -
+
+# lock screen: jelly+l #
+bindsym $mod+l exec swaylock -f
+
+# open terminal: jelly+t #
+bindsym $mod+t exec $term
+
+# kill focused window: jelly+q #
+bindsym $mod+q kill
+
+# start launcher (wofi): alt+space #
+bindsym mod1+space exec $menu
+
+# drag windows: jelly+lmb #
+# resize windows: jelly+rmb #
+# to swap: normal -> inverse #
+floating_modifier $mod normal
+
+# config reload: jelly+shift+c #
+bindsym $mod+Shift+c reload
+
+# exit sway / log out: jelly+shift+e #
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+## keybinds - media ##
+
+# audio #
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+# bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOUTCE@ toggle
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+## keybinds - movement ##
+
+# change focus: jelly+arrow #
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window: jelly+shift+arrow #
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+## keybinds - workspace ##
+
+# just name the defaults #
+bindsym $mod+1 workspace 🌊
+bindsym $mod+2 workspace 🌀 
+
+## keybinds - layout ##
+
+# swap focus between float & tile mode #
+bindsym $mod+Shift+space floating toggle
+
+# switch layout styles #
+# PREF - split: jelly+e #
+bindsym $mod+e layout toggle split
+
+# disabled modes - uncomment to enable #
+  # stacking: jelly+s #
+  # bindsym $mod+s layout stacking #
+
+  # tabbed : jelly+w #
+  # bindsym $mod+w layout tabbed #
+# end disabled modes #
+
+# change focus #
+# move focus to parent container #
+bindsym $mod+a focus parent
+
+# move focus between tile & float area #
+bindsym $mod+space focus mode_toggle
+
+# make focus fullscreen #
+bindsym $mod+f fullscreen
+
+## keybinds - resizing containers ##
+
+# defining resize mode actions #
+mode "resize" {
+ # left shrinks width #
+ bindsym Left resize shrink width 10px
+
+ # right grows width #
+ bindsym Right resize grow width 10px
+
+ # up shrinks height #
+ bindsym Up resize shrink height 10px
+
+ # down grows height #
+ bindsym Down resize grow height 10px
+
+ # return to default mode with enter or esc #
+ bindsym Return mode "default"
+ bindsym Escape mode "default"
+}
+
+# resize mode: jelly+r #
+bindsym $mod+r mode "resize"
+
+## status bar ##
+# details in man 5 sway-bar #
+
+bar {
+ swaybar_command waybar
+ position top
+}
+
+# swaybar config (for reference)
+#bar {
+# position top
+# # when status_command prints new line to stdout, swaybar updates #
+# # default is current date + time #
+# status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+
+# colors {
+#  statusline #ffffff
+#  background #323232
+#  inactive_workspace #32323200 #32323200 #5c5c5c
+# }
+#}
+
+## client config ##
+# aka where the colours live #
+
+# kill the title bar #
+default_border pixel
+default_floating_border pixel
+
+# colours! #
+# focused = surge green #
+# inactive/unfocused = kit blue #
+# urgent = kit eyes #
+# class			border		background	text		indicator	child_border
+client.focused		#8DE20CFF	#8DE20CFF	#000000FF	#8DE20CFF	#8DE20CFF
+client.focused_inactive #1AA3B6FF	#1AA3B6FF	#000000FF	#1AA3B6FF	#1AA3B6FF
+client.unfocused	#1AA3B6FF	#1AA3B6FF	#000000FF	#1AA3B6FF	#1AA3B6FF
+client.urgent		#C73CA0FF	#C73CA0FF	#000000ff	#C73CA0FF	#C73CA0FF
+
+## evil include statement ##
+include /etc/sway/config.d/*
